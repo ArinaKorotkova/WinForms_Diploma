@@ -13,13 +13,20 @@ namespace CurseWork
     {
 
         //Деталь 9 - Ретурный цилиндр
+        private readonly double diameter;
+
+        public ReturnyCylinder(double D)
+        {
+            diameter = D;
+        }
         public override string CreatePart(string name)
         {
-            if (File.Exists(Path.Combine(folderPath, $"{name}.m3d")))
-            {
-                return Path.Combine(folderPath, $"{name}.m3d");
-            }
+            //if (File.Exists(Path.Combine(folderPath, $"{name}.m3d")))
+            //{
+            //    return Path.Combine(folderPath, $"{name}.m3d");
+            //}
             CreateNew("Ретурный цилиндр");
+            var radius = diameter / 2;
 
 
             //Эскиз 1 - Базовое вращение
@@ -31,22 +38,22 @@ namespace CurseWork
 
             Scetch12D.ksLineSeg(0, 0, 10, 0, 3); // создаём первый отрезок (x1,y1,x2,y2,стиль линии) сось
 
-            Scetch12D.ksLineSeg(0, -87.5, 0, -130, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(0, -130, 350, -130, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(350, -130, 350, -115, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(350, -115, 600, -115, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(600, -115, 603, -112, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(603, -112, 1023, -112, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(1023, -112, 1025, -110, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(1025, -110, 2320, -110, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(2320, -110, 2320, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(0, -radius * 0.328, 0, -radius * 0.49, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(0, -radius * 0.49, 350, -radius * 0.49, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(350, -radius * 0.49, 350, -radius * 0.434, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(350, -radius * 0.434, 600, -radius * 0.434, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(600, -radius * 0.434, 603, -radius * 0.423, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(603, -radius * 0.423, 1023, -radius * 0.423, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(1023, -radius * 0.423, 1025, -radius * 0.415, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(1025, -radius * 0.415, 2320, -radius * 0.415, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(2320, -radius * 0.415, 2320, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
             Scetch12D.ksLineSeg(2320, 0, 2180, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(2180, 0, 2180, -75, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(2180, -75, 530, -75, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(530, -75, 530, -78, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(530, -78, 280, -78, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(280, -78, 280, -87.5, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(280, -87.5, 0, -87.5, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(2180, 0, 2180, -radius * 1.132 / 4, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(2180, -radius * 1.132 / 4, 530, -radius * 1.132 / 4, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(530, -radius * 1.132 / 4, 530, -radius * 0.294, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(530, -radius * 0.294, 280, -radius * 0.294, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(280, -radius * 0.294, 280, -radius * 0.328, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(280, -radius * 0.328, 0, -radius * 0.328, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
 
             ksScetchDef1.EndEdit(); // заканчиваем редактирование эскиза
@@ -62,8 +69,7 @@ namespace CurseWork
             RotatedBase1.Create(); // создаём операцию
 
 
-            ksEntityCollection ksEntityCollection91 = 
-                (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
+            ksEntityCollection ksEntityCollection91 = (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
             for (int i = 0; i < ksEntityCollection91.GetCount(); i++)
             {
                 ksEntity part1 = ksEntityCollection91.GetByIndex(i);
@@ -76,7 +82,7 @@ namespace CurseWork
                         double h1, r;
                         def.GetCylinderParam(out h1, out r);
 
-                        if (r == 87.5 && h1 == 280)
+                        if (r == radius * 0.328 && h1 == 280)
                         {
                             part1.name = "CylinderCentre1_RetCyl";
                             part1.Update();
@@ -116,9 +122,9 @@ namespace CurseWork
                                 p1.GetPoint(out x1, out y1, out z1);
                                 p2.GetPoint(out x2, out y2, out z2);
 
-                                if (Math.Abs(x1 - 350) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - 130) <= 0.1)
+                                if (Math.Abs(x1 - 350) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - radius * 0.49) <= 0.1)
                                 {
-                                    if (Math.Abs(x2 - 350) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2 - 130) <= 0.1)
+                                    if (Math.Abs(x2 - 350) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2 - radius * 0.49) <= 0.1)
                                     {
                                         part1.name = ("Panel1_RetCyl1");
                                         part1.Update();
@@ -135,8 +141,7 @@ namespace CurseWork
             }
 
 
-            ksEntityCollection ksEntityCollection21 = 
-                (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
+            ksEntityCollection ksEntityCollection21 = (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
             for (int i = 0; i < ksEntityCollection21.GetCount(); i++)
             {
                 ksEntity part = ksEntityCollection21.GetByIndex(i);
@@ -152,7 +157,7 @@ namespace CurseWork
                             ksVertexDefinition p = d.GetVertex(true);
                             double x1, y1, z1;
                             p.GetPoint(out x1, out y1, out z1);
-                            if (Math.Abs(x1 - 2180) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - 75) <= 0.1)
+                            if (Math.Abs(x1 - 2180) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - radius * 1.132 / 4) <= 0.1)
                             {
                                 part.name = ("Panel2_Dno_RetCyl1");
                                 part.Update();
@@ -169,14 +174,14 @@ namespace CurseWork
             ksScetch2Entity.Create(); // создадим эскиз
             ksDocument2D Scetch22D = (ksDocument2D)ksScetchDef2.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch22D.ksLineSeg(0, -12.5, 45, -12.5, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(45, -12.5, 45, -21, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(45, -21, 70, -21, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(70, -21, 70, 21, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(70, 21, 45, 21, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(45, 21, 45, 12.5, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(45, 12.5, 0, 12.5, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(0, 12.5, 0, -12.5, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(0, -radius * 0.045, radius * 0.1698, -radius * 0.045, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(radius * 0.1698, -radius * 0.045, radius * 0.1698, -radius * 0.079, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(radius * 0.1698, -radius * 0.079, radius * 0.264, -radius * 0.079, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(radius * 0.264, -radius * 0.079, radius * 0.264, radius * 0.079, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(radius * 0.264, radius * 0.079, radius * 0.1698, radius * 0.079, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(radius * 0.1698, radius * 0.079, radius * 0.1698, radius * 0.045, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(radius * 0.1698, radius * 0.045, 0, radius * 0.045, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(0, radius * 0.045, 0, -radius * 0.045, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef2.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -195,7 +200,7 @@ namespace CurseWork
                 // тип вырезания (строго на глубину)
                 CutPropScetch2.typeNormal = (short)End_Type.etBlind;
                 // глубина вырезания
-                CutPropScetch2.depthNormal = 260;
+                CutPropScetch2.depthNormal = radius * 0.981;
                 // создадим операцию
 
                 CutScetch2.Create();
@@ -233,10 +238,10 @@ namespace CurseWork
             ksScetch3Entity.Create(); // создадим эскиз
             ksDocument2D Scetch32D = (ksDocument2D)ksScetchDef3.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch32D.ksLineSeg(12.5, 109.3, 12.5, 45, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch32D.ksArcBy3Points(12.5, 45, 0, 32.5, -12.5, 45, 1);
-            Scetch32D.ksLineSeg(-12.5, 45, -12.5, 109.3, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch32D.ksArcBy3Points(-12.5, 109.3, 0, 110, 12.5, 109.3, 1);
+            Scetch32D.ksLineSeg(radius * 0.045, radius * 0.415, radius * 0.045, radius * 0.1698, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch32D.ksArcBy3Points(radius * 0.045, radius * 0.1698, 0, radius * 0.12, -radius * 0.045, radius * 0.1698, 1);
+            Scetch32D.ksLineSeg(-radius * 0.045, radius * 0.1698, -radius * 0.045, radius * 0.415, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch32D.ksArcBy3Points(-radius * 0.045, radius * 0.415, 0, radius * 0.423, radius * 0.045, radius * 0.415, 1);
 
             ksScetchDef3.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -275,10 +280,10 @@ namespace CurseWork
             ksScetch4Entity.Create(); // создадим эскиз
             ksDocument2D Scetch42D = (ksDocument2D)ksScetchDef4.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch42D.ksLineSeg(21, 108, 21, 45, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch42D.ksArcBy3Points(21, 45, 0, 24, -21, 45, 1);
-            Scetch42D.ksLineSeg(-21, 45, -21, 108, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch42D.ksArcBy3Points(-21, 108, 0, 110, 21, 108, 1);
+            Scetch42D.ksLineSeg(radius * 0.079, radius * 0.411, radius * 0.079, radius * 0.1698, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch42D.ksArcBy3Points(radius * 0.079, radius * 0.1698, 0, radius * 0.09, -radius * 0.079, radius * 0.1698, 1);
+            Scetch42D.ksLineSeg(-radius * 0.079, radius * 0.1698, -radius * 0.079, radius * 0.411, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch42D.ksArcBy3Points(-radius * 0.079, radius * 0.411, 0, radius * 0.415, radius * 0.079, radius * 0.411, 1);
 
             ksScetchDef4.EndEdit(); // заканчиваем редактирование эскиза
 

@@ -124,10 +124,10 @@ namespace WinFormsApp1
             sbKsDoc3d.SetPartFromFile(PoperechinaPolzunaPath, sbPart, false);
 
             //добавляем модель Ретурного цилиндра в сборку
-            string ReturnyCylinderPath1 = new ReturnyCylinder().CreatePart("Ретурный цилиндр левый");
+            string ReturnyCylinderPath1 = new ReturnyCylinder(d).CreatePart("Ретурный цилиндр левый");
             sbKsDoc3d.SetPartFromFile(ReturnyCylinderPath1, sbPart, false);
 
-            string ReturnyCylinderPath2 = new ReturnyCylinder().CreatePart("Ретурный цилиндр правый");
+            string ReturnyCylinderPath2 = new ReturnyCylinder(d).CreatePart("Ретурный цилиндр правый");
             sbKsDoc3d.SetPartFromFile(ReturnyCylinderPath2, sbPart, false);
 
             //добавляем модель Стакана 1 в сборку
