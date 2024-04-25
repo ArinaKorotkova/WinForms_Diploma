@@ -13,14 +13,21 @@ namespace CurseWork
     internal class TraversaVytalkivat : BasePart
     {
         //Деталь 10 - Траверса выталкивателя
+        private readonly double diameter;
+
+        public TraversaVytalkivat(double D)
+        {
+            diameter = D;
+        }
         public override string CreatePart(string partName = null)
         {
 
-            if (File.Exists(Path.Combine(folderPath, "Траверса выталкивателя.m3d")))
-            {
-                return Path.Combine(folderPath, "Траверса выталкивателя.m3d");
-            }
+            //if (File.Exists(Path.Combine(folderPath, "Траверса выталкивателя.m3d")))
+            //{
+            //    return Path.Combine(folderPath, "Траверса выталкивателя.m3d");
+            //}
             CreateNew("Траверса выталкивателя");
+            var radius = diameter / 2;
 
             //Эскиз 1 - первая половина поперечины
             ksEntity ksScetch1Entity = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза
@@ -30,14 +37,14 @@ namespace CurseWork
             ksDocument2D Scetch12D = (ksDocument2D)ksScetchDef1.BeginEdit(); // начинаем редактирование эскиза
 
 
-            Scetch12D.ksLineSeg(0, 0, 150, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(150, 0, 1000, 250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(1000, 250, 1180, 250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(0, 0, radius * 1.132 / 2, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 1.132 / 2, 0, radius * 3.775, 250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 3.775, 250, radius * 4.45, 250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
-            Scetch12D.ksLineSeg(1180, 250, 1180, 450, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(1180, 450, 150, 450, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(150, 450, 150, 480, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(150, 480, 0, 480, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 4.45, 250, radius * 4.45, 450, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 4.45, 450, radius * 1.132 / 2, 450, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 1.132 / 2, 450, radius * 1.132 / 2, 480, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 1.132 / 2, 480, 0, 480, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
             Scetch12D.ksLineSeg(0, 480, 0, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef1.EndEdit(); // заканчиваем редактирование эскиза
@@ -104,9 +111,9 @@ namespace CurseWork
                             p1.GetPoint(out x1, out y1, out z1);
                             p2.GetPoint(out x2, out y2, out z2);
 
-                            if (Math.Abs(x1 - 1180) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 + 450) <= 0.1)
+                            if (Math.Abs(x1 - radius * 4.45) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 + 450) <= 0.1)
                             {
-                                if (Math.Abs(x2 + 150) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2) <= 0.1)
+                                if (Math.Abs(x2 + radius * 1.132 / 2) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2) <= 0.1)
                                 {
                                     part1.name = ("Plane2_Bok_traversaVytalk");
                                     part1.Update();
@@ -128,10 +135,10 @@ namespace CurseWork
 
             ksDocument2D Rect1Sketch = (ksDocument2D)ksRect1ScetchDef.BeginEdit(); // начинаем редактирование эскиза. 
             ksRectangleParam Rect1Param = (ksRectangleParam)kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
-            Rect1Param.x = -150; // координата х одной из вершин прямоугольника
+            Rect1Param.x = -radius * 1.132 / 2; // координата х одной из вершин прямоугольника
             Rect1Param.y = 0; // координата y одной из вершин прямоугольника
             Rect1Param.height = 480; // высота
-            Rect1Param.width = 300; // ширина
+            Rect1Param.width = radius * 1.132; // ширина
             Rect1Param.ang = 0; // угол поворота
             Rect1Param.style = 1; // стиль линии
                                   // отправляем интерфейс параметров в функцию создания
@@ -151,7 +158,7 @@ namespace CurseWork
                 extrProp2.direction = (short)Direction_Type.dtNormal;
                 // тип выдавливания (строго на глубину)
                 extrProp2.typeNormal = (short)End_Type.etBlind;
-                extrProp2.depthNormal = 190; // глубина выдавливания
+                extrProp2.depthNormal = radius * 0.717; // глубина выдавливания
                 bossExtr2.Create(); // создадим операцию
             }
 
@@ -184,9 +191,9 @@ namespace CurseWork
                                     p1.GetPoint(out x1, out y1, out z1);
                                     p2.GetPoint(out x2, out y2, out z2);
 
-                                    if (Math.Abs(x1 + 150) <= 0.1 && Math.Abs(y1 - 190) <= 0.1 && Math.Abs(z1) <= 0.1)
+                                    if (Math.Abs(x1 + radius * 1.132 / 2) <= 0.1 && Math.Abs(y1 - radius * 0.717) <= 0.1 && Math.Abs(z1) <= 0.1)
                                     {
-                                        if (Math.Abs(x2 - 150) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2) <= 0.1)
+                                        if (Math.Abs(x2 - radius * 1.132 / 2) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2) <= 0.1)
                                         {
                                             part1.name = ("Plane1_traversaVytalk");
                                             part1.Update();
@@ -218,7 +225,7 @@ namespace CurseWork
 
             ksDocument2D Circle1Sketch = (ksDocument2D)ksCircle1ScetchDef.BeginEdit(); // начинаем редактирование эскиза. указываем название элементов эскизы
 
-            Circle1Sketch.ksCircle(0, 190, 75, 1);
+            Circle1Sketch.ksCircle(0, radius * 0.717, radius * 1.132 / 4, 1);
 
 
             ksCircle1ScetchDef.EndEdit(); // заканчиваем редактирование эскиза
@@ -250,7 +257,7 @@ namespace CurseWork
             ksEntity basePlane2Offset = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition offsetPlaneDef2 = basePlane2Offset.GetDefinition();
             offsetPlaneDef2.direction = true;
-            offsetPlaneDef2.offset = 190;
+            offsetPlaneDef2.offset = radius * 0.717;
             offsetPlaneDef2.SetPlane(basePlaneXOZ);
             basePlane2Offset.Create();
 
@@ -265,8 +272,8 @@ namespace CurseWork
 
 
             Scetch22D.ksLineSeg(0, 100, 0, 175, 3); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(0, 175, 75, 175, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksArcBy3Points(75, 175, 53, 122, 0, 100, 1);
+            Scetch22D.ksLineSeg(0, 175, radius * 1.132 / 4, 175, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksArcBy3Points(radius * 1.132 / 4, 175, radius * 0.2, 122, 0, 100, 1);
 
             ksScetchDef2.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -287,10 +294,10 @@ namespace CurseWork
 
             ksDocument2D Rect2Sketch = (ksDocument2D)ksRect2ScetchDef.BeginEdit(); // начинаем редактирование эскиза. 
             ksRectangleParam Rect2Param = (ksRectangleParam)kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
-            Rect2Param.x = -1180; // координата х одной из вершин прямоугольника
+            Rect2Param.x = -radius * 4.45; // координата х одной из вершин прямоугольника
             Rect2Param.y = 250; // координата y одной из вершин прямоугольника
             Rect2Param.height = 200; // высота
-            Rect2Param.width = 180; // ширина
+            Rect2Param.width = radius * 0.68; // ширина
             Rect2Param.ang = 0; // угол поворота
             Rect2Param.style = 1; // стиль линии
                                   // отправляем интерфейс параметров в функцию создания
@@ -310,7 +317,7 @@ namespace CurseWork
                 extrProp3.direction = (short)Direction_Type.dtNormal;
                 // тип выдавливания (строго на глубину)
                 extrProp3.typeNormal = (short)End_Type.etBlind;
-                extrProp3.depthNormal = 190; // глубина выдавливания
+                extrProp3.depthNormal = radius * 0.717; // глубина выдавливания
                 bossExtr3.Create(); // создадим операцию
             }
 
@@ -332,10 +339,10 @@ namespace CurseWork
             ksDocument2D Scetch32D = (ksDocument2D)ksScetchDef3.BeginEdit(); // начинаем редактирование эскиза
 
 
-            Scetch32D.ksLineSeg(-1180, 110, -1160, 110, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch32D.ksArcBy3Points(-1160, 110, -1146, 115.8, -1140, 130, 1);
-            Scetch32D.ksLineSeg(-1140, 130, -1180, 154, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch32D.ksLineSeg(-1180, 154, -1180, 110, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch32D.ksLineSeg(-radius * 4.45, radius * 0.415, -radius * 4.377, radius * 0.415, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch32D.ksArcBy3Points(-radius * 4.377, radius * 0.415, -radius * 4.325, radius * 0.438, -radius * 4.302, radius * 0.49, 1);
+            Scetch32D.ksLineSeg(-radius * 4.302, radius * 0.49, -radius * 4.45, radius * 0.581, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch32D.ksLineSeg(-radius * 4.45, radius * 0.581, -radius * 4.45, radius * 0.415, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef3.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -369,14 +376,14 @@ namespace CurseWork
             ksScetch4Entity.Create(); // создадим эскиз
             ksDocument2D Scetch42D = (ksDocument2D)ksScetchDef4.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch42D.ksLineSeg(-1140, 130, -1180, 154, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch42D.ksLineSeg(-1180, 154, -1180, 190, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch42D.ksLineSeg(-1180, 190, -1068, 190, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch42D.ksLineSeg(-radius * 4.302, radius * 0.49, -radius * 4.45, radius * 0.581, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch42D.ksLineSeg(-radius * 4.45, radius * 0.581, -radius * 4.45, radius * 0.717, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch42D.ksLineSeg(-radius * 4.45, radius * 0.717, -radius * 4.03, radius * 0.717, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
-            Scetch42D.ksArcBy3Points(-1068, 190, -1078.5, 164.5, -1104, 154, 1);
+            Scetch42D.ksArcBy3Points(-radius * 4.03, radius * 0.717, -radius * 4.068, radius * 0.619, -radius * 4.166, radius * 0.581, 1);
 
-            Scetch42D.ksLineSeg(-1104, 154, -1140, 154, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch42D.ksLineSeg(-1140, 154, -1140, 130, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch42D.ksLineSeg(-radius * 4.166, radius * 0.581, -radius * 4.302, radius * 0.581, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch42D.ksLineSeg(-radius * 4.302, radius * 0.581, -radius * 4.302, radius * 0.49, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef4.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -455,7 +462,7 @@ namespace CurseWork
                         double h1, r;
                         def.GetCylinderParam(out h1, out r);
 
-                        if (r == 75)
+                        if (r == radius * 1.132 / 4)
                         {
                             part1.name = "CylinderCentre_traversaVytalk";
                             part1.Update();
@@ -490,7 +497,7 @@ namespace CurseWork
                 // тип вырезания (строго на глубину)
                 CutPropCircle2.typeReverse = (short)End_Type.etBlind;
                 // глубина вырезания
-                CutPropCircle2.depthReverse = 380;
+                CutPropCircle2.depthReverse = radius * 1.434;
                 // создадим операцию
 
                 CutCircle2.Create();
@@ -509,7 +516,7 @@ namespace CurseWork
                         double h1, r;
                         def.GetCylinderParam(out h1, out r);
 
-                        if (r == 15 && h1 == 380)
+                        if (r == 15 && h1 == radius * 1.434)
                         {
                             part1.name = "Cylinder2_PodShpilky";
                             part1.Update();

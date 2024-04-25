@@ -143,7 +143,7 @@ namespace WinFormsApp1
             sbKsDoc3d.SetPartFromFile(ShtokVytalkivatelyPath, sbPart, false);
 
             //добавляем модель Траверсу выталкивателя в сборку
-            string TraversaVytalkivatPath = new TraversaVytalkivat().CreatePart();
+            string TraversaVytalkivatPath = new TraversaVytalkivat(d).CreatePart();
             sbKsDoc3d.SetPartFromFile(TraversaVytalkivatPath, sbPart, false);
 
             //добавляем модель Плита 1 в сборку
@@ -167,7 +167,7 @@ namespace WinFormsApp1
             sbKsDoc3d.SetPartFromFile(Plita2Path, sbPart, false);
 
             //добавляем модель Шпилька Штока в сборку
-            string ShpilkaShtokaPath = new ShpilkaShtoka().CreatePart();
+            string ShpilkaShtokaPath = new ShpilkaShtoka(d).CreatePart();
             sbKsDoc3d.SetPartFromFile(ShpilkaShtokaPath, sbPart, false);
 
             //добавляем модель Плунжер ретурного цилиндра в сборку
@@ -502,7 +502,7 @@ namespace WinFormsApp1
             shpilkaShtoka.Update();
 
             sbKsDoc3d.AddMateConstraint(4, Cylinder1_ShpilkaSht, Cylinder2_PodShpilky, 1, 1, 0);
-            sbKsDoc3d.AddMateConstraint(5, Plane1_Dno_ShpilkaSht, Plane2_Bok_traversaVytalk, 1, 1, -30);
+            sbKsDoc3d.AddMateConstraint(5, Plane1_Dno_ShpilkaSht, Plane2_Bok_traversaVytalk, 1, 1, -d / 2 * 0.113);
 
 
 

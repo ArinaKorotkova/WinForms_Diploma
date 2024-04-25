@@ -124,7 +124,7 @@ namespace CurseWork
             ksScetch2Entity.Create(); // создадим эскиз
             ksDocument2D Scetch22D = (ksDocument2D)ksScetchDef2.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch22D.ksCircle(35, 0, radius * 0.0566, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksCircle(35, 0, 15, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef2.EndEdit();
 
@@ -162,7 +162,7 @@ namespace CurseWork
                         double h1, r;
                         def.GetCylinderParam(out h1, out r);
 
-                        if (r == radius * 0.0566)
+                        if (r == 15)
                         {
                             part1.name = "CylinderD30_ShtokVytalk";
                             part1.Update();

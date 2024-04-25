@@ -12,13 +12,20 @@ namespace CurseWork
     internal class ShpilkaShtoka : BasePart
     {
         //Деталь 22 - Шпилька под шток
+        private readonly double diameter;
+
+        public ShpilkaShtoka(double D)
+        {
+            diameter = D;
+        }
         public override string CreatePart(string partName = null)
         {
-            if (File.Exists(Path.Combine(folderPath, "Шпилька под шток.m3d")))
-            {
-                return Path.Combine(folderPath, "Шпилька под шток.m3d");
-            }
+            //if (File.Exists(Path.Combine(folderPath, "Шпилька под шток.m3d")))
+            //{
+            //    return Path.Combine(folderPath, "Шпилька под шток.m3d");
+            //}
             CreateNew("Шпилька под шток");
+            var radius = diameter / 2;
 
             //Эскиз 1 - основание 
             ksEntity ksScetch1Entity = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза
@@ -27,9 +34,9 @@ namespace CurseWork
             ksScetch1Entity.Create(); // создадим эскиз
             ksDocument2D Scetch12D = (ksDocument2D)ksScetchDef1.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch12D.ksLineSeg(0, 0, 440, 0, 3); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(440, 0, 440, 15, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(440, 15, 0, 15, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(0, 0, radius * 1.66, 0, 3); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 1.66, 0, radius * 1.66, 15, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 1.66, 15, 0, 15, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
             Scetch12D.ksLineSeg(0, 15, 0, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef1.EndEdit();
@@ -103,7 +110,7 @@ namespace CurseWork
             ThreadDef.allLength = false; // признак полной длины
             ThreadDef.autoDefinDr = false;// признак автоопределения диаметра
             ThreadDef.dr = 30; // номинальный диаметр резьбы
-            ThreadDef.length = 30; // длина резьбы
+            ThreadDef.length = radius * 0.113; // длина резьбы
             ThreadDef.faceValue = true; // направление построения резьбы
             ThreadDef.p = 3.5; // шаг резьбы
                                // получаем коллекцию рёбер детали
@@ -122,13 +129,13 @@ namespace CurseWork
             ThreadDef1.allLength = false; // признак полной длины
             ThreadDef1.autoDefinDr = false;// признак автоопределения диаметра
             ThreadDef1.dr = 30; // номинальный диаметр резьбы
-            ThreadDef1.length = 30; // длина резьбы
+            ThreadDef1.length = radius * 0.113; // длина резьбы
             ThreadDef1.faceValue = true; // направление построения резьбы
             ThreadDef1.p = 3.5; // шаг резьбы
                                 // получаем коллекцию рёбер детали
             ksEntityCollection EdgeECol1 = (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_edge);
             // оставляем в массиве только ребро, проходящее через точку (x,y,z)
-            EdgeECol1.SelectByPoint(440, -15, 0);
+            EdgeECol1.SelectByPoint(radius * 1.66, -15, 0);
             ThreadDef1.SetBaseObject(EdgeECol1.First()); // устанавливаем ребро в параметры резьбы
             // создаём резьбу
             Thread1.Create();
