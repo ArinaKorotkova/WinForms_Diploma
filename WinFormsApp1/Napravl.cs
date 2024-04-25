@@ -12,14 +12,21 @@ namespace CurseWork
     internal class Napravl : BasePart
     {
         //Деталь 11 - Направляющая на раме пресса
+        private readonly double diameter;
+
+        public Napravl(double D)
+        {
+            diameter = D;
+        }
         public override string CreatePart(string name)
         {
 
-            if (File.Exists(Path.Combine(folderPath, $"{name}.m3d")))
-            {
-                return Path.Combine(folderPath, $"{name}.m3d");
-            }
+            //if (File.Exists(Path.Combine(folderPath, $"{name}.m3d")))
+            //{
+            //    return Path.Combine(folderPath, $"{name}.m3d");
+            //}
             CreateNew("Направляющая");
+            var radius = diameter / 2;
 
             //Эскиз 1 - основание направляющей
             ksEntity ksScetch1Entity = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза
@@ -28,17 +35,17 @@ namespace CurseWork
             ksScetch1Entity.Create(); // создадим эскиз
             ksDocument2D Scetch12D = (ksDocument2D)ksScetchDef1.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch12D.ksLineSeg(0, 0, 0, 50, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(0, 50, 164, 50, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(164, 50, 190, 24, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(0, 0, 0, radius * 0.189, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(0, radius * 0.189, radius * 0.619, radius * 0.189, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.619, radius * 0.189, radius * 0.717, radius * 0.09, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
-            Scetch12D.ksLineSeg(190, 24, 190, -180, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(190, -180, 274, -180, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(274, -180, 286, -192, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(286, -192, 161, -317, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(161, -317, 140, -296, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(140, -296, 140, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(140, 0, 0, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.717, radius * 0.09, radius * 0.717, -radius * 0.679, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.717, -radius * 0.679, radius * 1.034, -radius * 0.679, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 1.034, -radius * 0.679, radius * 1.079, -radius * 0.725, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 1.079, -radius * 0.725, radius * 0.608, -radius * 1.196, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.608, -radius * 1.196, radius * 0.528, -radius * 1.117, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.528, -radius * 1.117, radius * 0.528, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.528, 0, 0, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef1.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -88,9 +95,9 @@ namespace CurseWork
                                     p1.GetPoint(out x1, out y1, out z1);
                                     p2.GetPoint(out x2, out y2, out z2);
 
-                                    if (Math.Abs(x1 - 140) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - 296) <= 0.1)
+                                    if (Math.Abs(x1 - radius * 0.528) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - radius * 1.117) <= 0.1)
                                     {
-                                        if (Math.Abs(x2 - 140) <= 0.1 && Math.Abs(y2 - 2400) <= 0.1 && Math.Abs(z2) <= 0.1)
+                                        if (Math.Abs(x2 - radius * 0.528) <= 0.1 && Math.Abs(y2 - 2400) <= 0.1 && Math.Abs(z2) <= 0.1)
                                         {
                                             part1.name = ("Plane1_Zad_Napr");
                                             part1.Update();
@@ -134,7 +141,7 @@ namespace CurseWork
                                     p1.GetPoint(out x1, out y1, out z1);
                                     p2.GetPoint(out x2, out y2, out z2);
 
-                                    if (Math.Abs(x1 - 140) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1) <= 0.1)
+                                    if (Math.Abs(x1 - radius * 0.528) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1) <= 0.1)
                                     {
                                         if (Math.Abs(x2) <= 0.1 && Math.Abs(y2 - 2400) <= 0.1 && Math.Abs(z2) <= 0.1)
                                         {
@@ -178,9 +185,9 @@ namespace CurseWork
                                     p1.GetPoint(out x1, out y1, out z1);
                                     p2.GetPoint(out x2, out y2, out z2);
 
-                                    if (Math.Abs(x1 - 161) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - 317) <= 0.1)
+                                    if (Math.Abs(x1 - radius * 0.608) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - radius * 1.196) <= 0.1)
                                     {
-                                        if (Math.Abs(x2 - 164) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2 + 50) <= 0.1)
+                                        if (Math.Abs(x2 - radius * 0.619) <= 0.1 && Math.Abs(y2) <= 0.1 && Math.Abs(z2 + radius * 0.189) <= 0.1)
                                         {
                                             part1.name = ("Plane3_Verh_Napr");
                                             part1.Update();
@@ -197,7 +204,7 @@ namespace CurseWork
             ksEntity basePlane1Offset = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition offsetPlaneDef1 = basePlane1Offset.GetDefinition();
             offsetPlaneDef1.direction = false;
-            offsetPlaneDef1.offset = 140;
+            offsetPlaneDef1.offset = radius * 0.528;
             offsetPlaneDef1.SetPlane(basePlaneZOY);
             basePlane1Offset.Create();
 
@@ -208,10 +215,10 @@ namespace CurseWork
             ksScetch2Entity.Create(); // создадим эскиз
             ksDocument2D Scetch22D = (ksDocument2D)ksScetchDef2.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch22D.ksLineSeg(-114, -2222, -146, -2222, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksArcBy3Points(-146, -2222, -160, -2236, -146, -2250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksLineSeg(-146, -2250, -114, -2250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch22D.ksArcBy3Points(-114, -2250, -100, -2236, -114, -2222, 1);
+            Scetch22D.ksLineSeg(-radius * 0.43, -2222, -radius * 0.55, -2222, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksArcBy3Points(-radius * 0.55, -2222, -radius * 0.604, -2236, -radius * 0.55, -2250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksLineSeg(-radius * 0.55, -2250, -radius * 0.43, -2250, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksArcBy3Points(-radius * 0.43, -2250, -radius * 0.377, -2236, -radius * 0.43, -2222, 1);
 
             ksScetchDef2.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -230,7 +237,7 @@ namespace CurseWork
                 // тип вырезания (строго на глубину)
                 CutPropScetch1.typeNormal = (short)End_Type.etBlind;
                 // глубина вырезания
-                CutPropScetch1.depthNormal = 50;
+                CutPropScetch1.depthNormal = radius * 0.189;
                 // создадим операцию
 
                 CutScetch1.Create();
@@ -273,7 +280,7 @@ namespace CurseWork
             ksEntity basePlane2Offset = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition offsetPlaneDef2 = basePlane2Offset.GetDefinition();
             offsetPlaneDef2.direction = false;
-            offsetPlaneDef2.offset = 338;
+            offsetPlaneDef2.offset = radius * 1.275;
             offsetPlaneDef2.SetPlane(PlaneAngle1);
             basePlane2Offset.Create();
 
@@ -285,8 +292,8 @@ namespace CurseWork
             ksScetch3Entity.Create(); // создадим эскиз
             ksDocument2D Scetch32D = (ksDocument2D)ksScetchDef3.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch32D.ksCircle(66.31, 2340, 8, 1);
-            Scetch32D.ksCircle(-22.47, 2260, 8, 1);
+            Scetch32D.ksCircle(radius * 0.249, 2340, 8, 1);
+            Scetch32D.ksCircle(-radius * 0.083, 2260, 8, 1);
 
             ksScetchDef3.EndEdit(); // заканчиваем редактирование эскиза
 

@@ -139,7 +139,7 @@ namespace WinFormsApp1
             sbKsDoc3d.SetPartFromFile(ShpilkaStyzhnayaPath, sbPart, false);
 
             //добавляем модель Штока выталкивателя в сборку
-            string ShtokVytalkivatelyPath = new ShtokVytalkivately().CreatePart();
+            string ShtokVytalkivatelyPath = new ShtokVytalkivately(d).CreatePart();
             sbKsDoc3d.SetPartFromFile(ShtokVytalkivatelyPath, sbPart, false);
 
             //добавляем модель Траверсу выталкивателя в сборку
@@ -151,7 +151,7 @@ namespace WinFormsApp1
             sbKsDoc3d.SetPartFromFile(Plita1Path, sbPart, false);
 
             //добавляем модель Ребра жесткости в сборку
-            string RebroZhPath = new RebroZh().CreatePart();
+            string RebroZhPath = new RebroZh(d).CreatePart();
             sbKsDoc3d.SetPartFromFile(RebroZhPath, sbPart, false);
 
             //добавляем модель Стакан 2 в сборку
@@ -171,23 +171,23 @@ namespace WinFormsApp1
             sbKsDoc3d.SetPartFromFile(ShpilkaShtokaPath, sbPart, false);
 
             //добавляем модель Плунжер ретурного цилиндра в сборку
-            string PlunReturnogoCylPath1 = new PlunReturnogoCyl().CreatePart("Плунжер ретурного цилиндра левый");
+            string PlunReturnogoCylPath1 = new PlunReturnogoCyl(d).CreatePart("Плунжер ретурного цилиндра левый");
             sbKsDoc3d.SetPartFromFile(PlunReturnogoCylPath1, sbPart, false);
 
-            string PlunReturnogoCylPath2 = new PlunReturnogoCyl().CreatePart("Плунжер ретурного цилиндра правый");
+            string PlunReturnogoCylPath2 = new PlunReturnogoCyl(d).CreatePart("Плунжер ретурного цилиндра правый");
             sbKsDoc3d.SetPartFromFile(PlunReturnogoCylPath2, sbPart, false);
 
             //добавляем модель Направляющая в сборку
-            string NapravlPath1 = new Napravl().CreatePart("Направляющая(L+L)");
+            string NapravlPath1 = new Napravl(d).CreatePart("Направляющая(L+L)");
             sbKsDoc3d.SetPartFromFile(NapravlPath1, sbPart, false);
 
-            string NapravlPath2 = new Napravl().CreatePart("Направляющая(L+R)");
+            string NapravlPath2 = new Napravl(d).CreatePart("Направляющая(L+R)");
             sbKsDoc3d.SetPartFromFile(NapravlPath2, sbPart, false);
 
-            string NapravlPath3 = new Napravl().CreatePart("Направляющая(R+L)");
+            string NapravlPath3 = new Napravl(d).CreatePart("Направляющая(R+L)");
             sbKsDoc3d.SetPartFromFile(NapravlPath3, sbPart, false);
 
-            string NapravlPath4 = new Napravl().CreatePart("Направляющая(R+R)");
+            string NapravlPath4 = new Napravl(d).CreatePart("Направляющая(R+R)");
             sbKsDoc3d.SetPartFromFile(NapravlPath4, sbPart, false);
 
 
@@ -446,8 +446,8 @@ namespace WinFormsApp1
 
             sbKsDoc3d.AddMateConstraint(5, Panel1_Verh_Plita1, nizhTr_Panel2, -1, 1, 30);
             sbKsDoc3d.AddMateConstraint(1, Panel2_Bok_Plita1, nizhTr_Panel3, 1, 1, 0);
-            sbKsDoc3d.AddMateConstraint(5, Panel2_Bok_Plita1, nizhTr_Panel3, 1, 1, 510);
-            sbKsDoc3d.AddMateConstraint(5, Panel3_R_Plita1, Planel2_Bok_Plita1, 1, 1, 430);
+            sbKsDoc3d.AddMateConstraint(5, Panel2_Bok_Plita1, nizhTr_Panel3, 1, 1, d / 2 * 1.9245);
+            sbKsDoc3d.AddMateConstraint(5, Panel3_R_Plita1, Planel2_Bok_Plita1, 1, 1, d / 2 * 1.6226);
 
 
             sbParts = sbKsDoc3d.PartCollection(true);

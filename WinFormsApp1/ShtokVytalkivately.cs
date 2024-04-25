@@ -13,14 +13,21 @@ namespace CurseWork
     internal class ShtokVytalkivately : BasePart
     {
         //Деталь 12 - Шток выталкивателя
+        private readonly double diameter;
+
+        public ShtokVytalkivately(double D)
+        {
+            diameter = D;
+        }
         public override string CreatePart(string partName = null)
         {
-            if (File.Exists(Path.Combine(folderPath, "Шток выталкивателя.m3d")))
-            {
-                return Path.Combine(folderPath, "Шток выталкивателя.m3d");
-            }
+            //if (File.Exists(Path.Combine(folderPath, "Шток выталкивателя.m3d")))
+            //{
+            //    return Path.Combine(folderPath, "Шток выталкивателя.m3d");
+            //}
 
             CreateNew("Шток выталкивателя");
+            var radius = diameter / 2;
 
             //Эскиз 1 - основание направляющей
             ksEntity ksScetch1Entity = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза
@@ -30,9 +37,9 @@ namespace CurseWork
             ksDocument2D Scetch12D = (ksDocument2D)ksScetchDef1.BeginEdit(); // начинаем редактирование эскиза
 
             Scetch12D.ksLineSeg(0, 0, 1375, 0, 3); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(1375, 0, 1375, -75, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(1375, -75, 75, -75, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksArcBy3Points(75, -75, 22, -53, 0, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(1375, 0, 1375, -radius * 1.132 / 4, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(1375, -radius * 1.132 / 4, 75, -radius * 1.132 / 4, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksArcBy3Points(75, -radius * 1.132 / 4, 22, -radius * 0.2, 0, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
             ksScetchDef1.EndEdit();
 
             ksEntity RotatedBase1 = part.NewEntity((int)Obj3dType.o3d_bossRotated);
@@ -59,7 +66,7 @@ namespace CurseWork
                         double h1, r;
                         def.GetCylinderParam(out h1, out r);
 
-                        if (r == 75)
+                        if (r == radius * 1.132 / 4)
                         {
                             part1.name = "CylinderMainBody_shtokVytalk";
                             part1.Update();
@@ -97,7 +104,7 @@ namespace CurseWork
                                     p1.GetPoint(out x1, out y1, out z1);
 
 
-                                    if (Math.Abs(x1 - 1375) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - 75) <= 0.1)
+                                    if (Math.Abs(x1 - 1375) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 - radius * 1.132 / 4) <= 0.1)
                                     {
                                         part1.name = ("Plane1_shtokVytalk");
                                         part1.Update();
@@ -117,7 +124,7 @@ namespace CurseWork
             ksScetch2Entity.Create(); // создадим эскиз
             ksDocument2D Scetch22D = (ksDocument2D)ksScetchDef2.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch22D.ksCircle(35, 0, 15, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch22D.ksCircle(35, 0, radius * 0.0566, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef2.EndEdit();
 
@@ -135,7 +142,7 @@ namespace CurseWork
                 // тип вырезания (строго на глубину)
                 CutPropScetch2.typeNormal = (short)End_Type.etBlind;
                 // глубина вырезания
-                CutPropScetch2.depthNormal = 150;
+                CutPropScetch2.depthNormal = radius * 1.132 / 2;
                 // создадим операцию
 
                 CutScetch2.Create();
@@ -155,7 +162,7 @@ namespace CurseWork
                         double h1, r;
                         def.GetCylinderParam(out h1, out r);
 
-                        if (r == 15)
+                        if (r == radius * 0.0566)
                         {
                             part1.name = "CylinderD30_ShtokVytalk";
                             part1.Update();
@@ -168,7 +175,7 @@ namespace CurseWork
             ksEntity basePlane1Offset = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition offsetPlaneDef1 = basePlane1Offset.GetDefinition();
             offsetPlaneDef1.direction = false;
-            offsetPlaneDef1.offset = 75;
+            offsetPlaneDef1.offset = radius * 1.132 / 4;
             offsetPlaneDef1.SetPlane(basePlaneXOZ);
             basePlane1Offset.Create();
 
@@ -180,8 +187,8 @@ namespace CurseWork
 
             ksRectangleParam recParam = (ksRectangleParam)kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
             recParam.x = 1195;
-            recParam.y = -10;
-            recParam.height = 20;
+            recParam.y = -radius * 0.0377;
+            recParam.height = radius * 0.075;
             recParam.width = 150;
             recParam.ang = 0;
             recParam.style = 1;
@@ -200,7 +207,7 @@ namespace CurseWork
                 extrProp1.direction = (short)Direction_Type.dtReverse;
                 // тип выдавливания (строго на глубину)
                 extrProp1.typeReverse = (short)End_Type.etBlind;
-                extrProp1.depthReverse = 45; // глубина выдавливания
+                extrProp1.depthReverse = radius * 0.169; // глубина выдавливания
                 bossExtr1.Create(); // создадим операцию
             }
 
@@ -215,7 +222,7 @@ namespace CurseWork
                 extrProp2.direction = (short)Direction_Type.dtNormal;
                 // тип выдавливания (строго на глубину)
                 extrProp2.typeNormal = (short)End_Type.etBlind;
-                extrProp2.depthNormal = 20; // глубина выдавливания
+                extrProp2.depthNormal = radius * 0.075; // глубина выдавливания
                 bossExtr2.Create(); // создадим операцию
             }
 

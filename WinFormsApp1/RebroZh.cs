@@ -12,13 +12,20 @@ namespace CurseWork
     internal class RebroZh : BasePart
     {
         //Деталь 23 - Ребро жесткости
+        private readonly double diameter;
+
+        public RebroZh(double D)
+        {
+            diameter = D;
+        }
         public override string CreatePart(string partName = null)
         {
-            if (File.Exists(Path.Combine(folderPath, "Ребро жесткости.m3d")))
-            {
-                return Path.Combine(folderPath, "Ребро жесткости.m3d");
-            }
+            //if (File.Exists(Path.Combine(folderPath, "Ребро жесткости.m3d")))
+            //{
+            //    return Path.Combine(folderPath, "Ребро жесткости.m3d");
+            //}
             CreateNew("Ребро жесткости");
+            var radius = diameter / 2;
 
             //Эскиз 1 - основание 
             ksEntity ksScetch1Entity = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза
@@ -27,13 +34,13 @@ namespace CurseWork
             ksScetch1Entity.Create(); // создадим эскиз
             ksDocument2D Scetch12D = (ksDocument2D)ksScetchDef1.BeginEdit(); // начинаем редактирование эскиза
 
-            Scetch12D.ksLineSeg(119, 0, 190, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(190, 0, 250, 410, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(250, 410, 130, 410, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.449, 0, radius * 0.717, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.717, 0, radius * 0.94, 410, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.94, 410, radius * 0.49, 410, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
-            Scetch12D.ksLineSeg(130, 410, 130, 220, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(130, 220, 120, 160, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
-            Scetch12D.ksLineSeg(120, 160, 119, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.49, 410, radius * 0.49, 220, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.49, 220, radius * 0.45, 160, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
+            Scetch12D.ksLineSeg(radius * 0.45, 160, radius * 0.449, 0, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
             ksScetchDef1.EndEdit();
 
@@ -81,9 +88,9 @@ namespace CurseWork
                             p1.GetPoint(out x1, out y1, out z1);
                             p2.GetPoint(out x2, out y2, out z2);
 
-                            if (Math.Abs(x1 - 250) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 + 410) <= 0.1)
+                            if (Math.Abs(x1 - radius * 0.94) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 + 410) <= 0.1)
                             {
-                                if (Math.Abs(x2 - 130) <= 0.1 && Math.Abs(y2 + 20) <= 0.1 && Math.Abs(z2 + 410) <= 0.1)
+                                if (Math.Abs(x2 - radius * 0.49) <= 0.1 && Math.Abs(y2 + 20) <= 0.1 && Math.Abs(z2 + 410) <= 0.1)
                                 {
                                     part1.name = ("Panel1_Verh_RebZh");
                                     part1.Update();
@@ -127,9 +134,9 @@ namespace CurseWork
                             p1.GetPoint(out x1, out y1, out z1);
                             p2.GetPoint(out x2, out y2, out z2);
 
-                            if (Math.Abs(x1 - 130) <= 0.1 && Math.Abs(y1 + 20) <= 0.1 && Math.Abs(z1 + 410) <= 0.1)
+                            if (Math.Abs(x1 - radius * 0.49) <= 0.1 && Math.Abs(y1 + 20) <= 0.1 && Math.Abs(z1 + 410) <= 0.1)
                             {
-                                if (Math.Abs(x2 - 190) <= 0.1 && Math.Abs(y2 + 20) <= 0.1 && Math.Abs(z2) <= 0.1)
+                                if (Math.Abs(x2 - radius * 0.717) <= 0.1 && Math.Abs(y2 + 20) <= 0.1 && Math.Abs(z2) <= 0.1)
                                 {
                                     part1.name = ("Panel2_Bok_RebZh");
                                     part1.Update();
@@ -173,9 +180,9 @@ namespace CurseWork
                             p1.GetPoint(out x1, out y1, out z1);
                             p2.GetPoint(out x2, out y2, out z2);
 
-                            if (Math.Abs(x1 - 130) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 + 410) <= 0.1)
+                            if (Math.Abs(x1 - radius * 0.49) <= 0.1 && Math.Abs(y1) <= 0.1 && Math.Abs(z1 + 410) <= 0.1)
                             {
-                                if (Math.Abs(x2 - 130) <= 0.1 && Math.Abs(y2 + 20) <= 0.1 && Math.Abs(z2 + 220) <= 0.1)
+                                if (Math.Abs(x2 - radius * 0.49) <= 0.1 && Math.Abs(y2 + 20) <= 0.1 && Math.Abs(z2 + 220) <= 0.1)
                                 {
                                     part1.name = ("Panel3_R_RebZh");
                                     part1.Update();
