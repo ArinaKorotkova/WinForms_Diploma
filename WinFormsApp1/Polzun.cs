@@ -746,10 +746,10 @@ namespace CurseWork
 
             ksDocument2D Circle31Sketch = (ksDocument2D)ksCircle31ScetchDef.BeginEdit(); // начинаем редактирование эскиза. указываем название элементов эскизы
 
-            Circle31Sketch.ksCircle(180, 0, 25, 1);
-            Circle31Sketch.ksCircle(360, 0, 25, 1);
-            Circle31Sketch.ksCircle(-180, 0, 25, 1);
-            Circle31Sketch.ksCircle(-360, 0, 25, 1);
+            Circle31Sketch.ksCircle(radius * 0.679, 0, 25, 1);
+            Circle31Sketch.ksCircle(radius * 0.679 * 2, 0, 25, 1);
+            Circle31Sketch.ksCircle(-radius * 0.679, 0, 25, 1);
+            Circle31Sketch.ksCircle(-radius * 0.679 * 2, 0, 25, 1);
 
             ksCircle31ScetchDef.EndEdit(); // заканчиваем редактирование эскиза
 

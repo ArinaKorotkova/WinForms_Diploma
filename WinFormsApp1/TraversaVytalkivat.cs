@@ -369,6 +369,7 @@ namespace CurseWork
             }
 
 
+
             //Эскиз 7 - отверстие под направляющую и задвижку 2
             ksEntity ksScetch4Entity = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза
             SketchDefinition ksScetchDef4 = ksScetch4Entity.GetDefinition(); // получаем интерфейс свойств эскиза
@@ -409,7 +410,6 @@ namespace CurseWork
                 CutScetch4.Create();
             }
 
-
             //Зеркальный массив относительно плоскости ZOY зеркалим отверстия под направляющую
             ksEntity MirrorCopyPart2 = part.NewEntity((short)Obj3dType.o3d_mirrorOperation);
             // получаем интерфейс определения вырезания
@@ -426,6 +426,7 @@ namespace CurseWork
                 MirrorCopyPart2Def.SetPlane(basePlaneZOY);
                 MirrorCopyPart2.Create();
             }
+
 
 
             //Зеркальный массив относительно плоскости ZOY зеркалим всю половину детали
@@ -503,10 +504,10 @@ namespace CurseWork
                 CutCircle2.Create();
             }
 
-            ksEntityCollection ksEntityCollection4 = (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
-            for (int i = 0; i < ksEntityCollection4.GetCount(); i++)
+            ksEntityCollection ksEntityCollection5 = (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
+            for (int i = 0; i < ksEntityCollection5.GetCount(); i++)
             {
-                ksEntity part1 = ksEntityCollection4.GetByIndex(i);
+                ksEntity part1 = ksEntityCollection5.GetByIndex(i);
                 ksFaceDefinition def = part1.GetDefinition();
 
                 if (def.GetOwnerEntity() == CutCircle2)

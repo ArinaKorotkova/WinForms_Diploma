@@ -3,18 +3,18 @@ namespace WinFormsApp1
     public partial class Form1 : Form
     {
         float s = 1000;
-        float p = 250;
+        float p = 200;
         string material = "Не выбрано";
         int pressType = 0;
-        float q = 300;
+        float q = 480;
 
         string folderPath = @"C:\Users\arina\Documents\Институт\ИнжПроект_Диплом\Гидравлический пресс\Сборка1";
 
-        int cb1_index = 5;
+        int cb1_index = 4;//p_рабочее
 
         double D = 0;
 
-        public Form1()
+        public Form1()//конструктор 
         {
             InitializeComponent();
 
@@ -26,7 +26,7 @@ namespace WinFormsApp1
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            p = float.Parse(comboBox1.SelectedItem.ToString()!.Split()[0]);
+            p = float.Parse(comboBox1.SelectedItem.ToString()!.Split()[0]);//Отделяем число от МПа
         }
 
         
@@ -64,7 +64,8 @@ namespace WinFormsApp1
             360, 400, 450, 500, 530, 560, 630, 710, 800, 900
         };
 
-        private static Dictionary<int, Dictionary<string, (int Min, int Max)>> qValues = new Dictionary<int, Dictionary<string, (int Min, int Max)>>()
+        private static Dictionary<int, Dictionary<string, (int Min, int Max)>> qValues = 
+            new Dictionary<int, Dictionary<string, (int Min, int Max)>>()
         {
             {
                 0,
@@ -110,7 +111,7 @@ namespace WinFormsApp1
         {
             material = comboBox2.SelectedItem.ToString()!;
 
-            textBox2.ReadOnly = comboBox2.SelectedIndex > 0;
+            textBox2.ReadOnly = comboBox2.SelectedIndex > 0;// не выбрано = 0
 
 
             if (material != "Не выбрано")
@@ -123,7 +124,9 @@ namespace WinFormsApp1
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            pressType = 0;
+            pressType = 0;// тип прессования прямое
+            
+            textBox2.ReadOnly = true;
 
             if (material != "Не выбрано")
             {
@@ -135,7 +138,9 @@ namespace WinFormsApp1
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            pressType = 1;
+            pressType = 1;// тип прессования литьевое
+
+            textBox2.ReadOnly = true;
 
 
             if (material != "Не выбрано")
@@ -146,12 +151,19 @@ namespace WinFormsApp1
             }
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            pressType = -1;// тип не выбрано
+
+            textBox2.ReadOnly = comboBox2.SelectedIndex > 0;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)// руками ввели q
         {
             q = float.Parse(textBox2.Text);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) 
         {
             if (material != "Не выбрано")
             {
@@ -167,7 +179,7 @@ namespace WinFormsApp1
             textBox4.Text = F.ToString();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)//закрытие приложения чтобы оно закрылось
         {
             Application.Exit();
         }
@@ -181,6 +193,11 @@ namespace WinFormsApp1
         }
 
         private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
         {
 
         }

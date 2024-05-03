@@ -54,6 +54,8 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.button3 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -61,7 +63,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(996, 659);
+            this.button1.Location = new System.Drawing.Point(1046, 659);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(154, 39);
             this.button1.TabIndex = 0;
@@ -204,15 +206,15 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(697, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(677, 12);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(442, 599);
+            this.pictureBox2.Size = new System.Drawing.Size(489, 641);
             this.pictureBox2.TabIndex = 21;
             this.pictureBox2.TabStop = false;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(836, 659);
+            this.button2.Location = new System.Drawing.Point(862, 659);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(154, 39);
             this.button2.TabIndex = 22;
@@ -277,7 +279,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(412, 287);
+            this.radioButton2.Location = new System.Drawing.Point(356, 287);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(96, 24);
             this.radioButton2.TabIndex = 29;
@@ -306,12 +308,36 @@
             this.label8.Text = "Выберите путь сохранения модели:";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(487, 287);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(116, 24);
+            this.radioButton3.TabIndex = 32;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Не выбрано";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(676, 659);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(154, 39);
+            this.button4.TabIndex = 33;
+            this.button4.Text = "Спецификация";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1151, 697);
+            this.ClientSize = new System.Drawing.Size(1199, 697);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.radioButton2);
@@ -374,5 +400,7 @@
         private FolderBrowserDialog folderBrowserDialog1;
         private Button button3;
         private Label label8;
+        private RadioButton radioButton3;
+        private Button button4;
     }
 }

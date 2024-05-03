@@ -191,6 +191,10 @@ namespace WinFormsApp1
             sbKsDoc3d.SetPartFromFile(NapravlPath4, sbPart, false);
 
 
+            string TygaVytPath = new TygaVytalkivat(d).CreatePart();
+            sbKsDoc3d.SetPartFromFile(TygaVytPath, sbPart, false);
+
+
             //выт€гиваем из рамы грань по имени нужную
             ksPartCollection sbParts = sbKsDoc3d.PartCollection(true);
             ksPart rama = sbParts.GetByIndex(0);
@@ -316,6 +320,7 @@ namespace WinFormsApp1
             ksEntity plane1_Nizh_PoperechPolzuna = PoperechPolzunaFaces.GetByName("Plane1_Nizh_PoperPolzuna", true, true);
             ksEntity Plane2_Bokovaya_PoperechPolzuna = PoperechPolzunaFaces.GetByName("Plane2_Bokovaya_PoperPolzuna", true, true);
             ksEntity cylinderOtv_PoperechPolzuna = PoperechPolzunaFaces.GetByName("CylinderOtv_PoperechPolzuna", true, true);
+            ksEntity CylinderTyga_PoperechPolzuna = PoperechPolzunaFaces.GetByName("CylinderTyga_PoperechPolzuna", true, true);
 
             poperechPolzuna.name = "ѕоперечина ползуна";
             poperechPolzuna.Update();
@@ -339,6 +344,7 @@ namespace WinFormsApp1
 
             sbKsDoc3d.AddMateConstraint(4, rama_Cil1, CylinderCentre_RetCyl1, 1, 1, 0);
             sbKsDoc3d.AddMateConstraint(5, rama_Panel1, Planel1_RetCyl1, -1, 1, -3350);
+            sbKsDoc3d.AddMateConstraint(5, plane1_Nizh_PoperechPolzuna, Planel1_RetCyl1, 1, 1, 430);
 
 
             sbParts = sbKsDoc3d.PartCollection(true);
@@ -589,6 +595,20 @@ namespace WinFormsApp1
             sbKsDoc3d.AddMateConstraint(5, Plane3_Verh_Napr4, rama1_Panel1, -1, 1, -3000);
             sbKsDoc3d.AddMateConstraint(5, Plane2_Bok_Napr4, rama1_Panel3_R, -1, 1, 48);
 
+
+            sbParts = sbKsDoc3d.PartCollection(true);
+            ksPart tygavyt1 = sbParts.GetByIndex(26);
+            ksEntityCollection tygavyt1Faces = tygavyt1.EntityCollection((short)Obj3dType.o3d_face);
+            ksEntity Cylinder_TygaVytalk = tygavyt1Faces.GetByName("Cylinder_TygaVytalk", true, true);
+            ksEntity Plane1_Dno_TygaVyt = tygavyt1Faces.GetByName("Plane1_Dno_TygaVyt", true, true);
+
+            sbKsDoc3d.AddMateConstraint(4, Cylinder_TygaVytalk, CylinderTyga_PoperechPolzuna, 1, 1, 0);
+            sbKsDoc3d.AddMateConstraint(5, Plane1_Dno_TygaVyt, Plane1_traversaVytalk, 1, 1, 250);
+
+            tygavyt1.name = "“€га выталкивател€";
+            tygavyt1.Update();
+
+
             sbPart = sbKsDoc3d.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой детали
             ksEntity meshArr = sbPart.NewEntity((short)Obj3dType.o3d_meshPartArray);
             ksMeshPartArrayDefinition def = meshArr.GetDefinition();
@@ -601,7 +621,7 @@ namespace WinFormsApp1
             def.factor1 = true;
             def.factor2 = true;
             def.insideFlag = false;
-            def.step1 = d / 2 * 2.6415;
+            def.step1 = -d / 2 * 2.6415;
             def.step2 = -d / 2 * 6.0377;
             ksPartCollection EntityCollection1 = def.PartArray();
             EntityCollection1.Add(shpilkaStyzhnaya);

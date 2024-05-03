@@ -234,7 +234,7 @@ namespace CurseWork
             Circle11Sketch.ksCircle(radius * 3.079, radius * 0.94 / 2, 25, 1);
 
 
-            Circle11Sketch.ksCircle(radius * 1.419, radius * 0.94 / 2, 71, 1);
+            Circle11Sketch.ksCircle(radius * 1.419, radius * 0.94 / 2, radius * 0.2679, 1);
 
             ksCircle11ScetchDef.EndEdit(); // заканчиваем редактирование эскиза
 
@@ -316,7 +316,7 @@ namespace CurseWork
             Scetch12D.ksLineSeg(40, radius * 0.245, 40, radius * 0.336, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
             Scetch12D.ksLineSeg(40, radius * 0.336, 76, radius * 0.336, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
 
-            Scetch12D.ksArcBy3Points(76, radius * 0.336, 112, radius * 0.47, 76, radius * 0.61, 1);
+            Scetch12D.ksLineSeg(76, radius * 0.336, 76, radius * 0.61, 1);
 
             Scetch12D.ksLineSeg(76, radius * 0.61, 40, radius * 0.61, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
             Scetch12D.ksLineSeg(40, radius * 0.61, 40, radius * 0.698, 1); // создаём первый отрезок (x1,y1,x2,y2,стиль линии)
@@ -338,6 +338,59 @@ namespace CurseWork
                 CutExtrProp1.typeNormal = (short)End_Type.etBlind;
                 CutExtrProp1.depthNormal = 250; // глубина выдавливания
                 CutExtr1.Create(); // создадим операцию
+            }
+
+
+            //продолжение под тягу 
+            ksEntity ksCircle21ScetchEntity = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза. указываем имя всего эскизы
+            SketchDefinition ksCircle21ScetchDef = ksCircle21ScetchEntity.GetDefinition(); // получаем интерфейс свойств эскиза. указываем имя для свойств эскизы
+            ksCircle21ScetchDef.SetPlane(basePlane1Offset); // установим плоскость XOZ базовой для эскиза
+            ksCircle21ScetchEntity.Create(); // создадим эскиз
+
+            ksDocument2D Circle21Sketch = (ksDocument2D)ksCircle21ScetchDef.BeginEdit(); // начинаем редактирование эскиза. указываем название элементов эскизы
+
+            Circle21Sketch.ksCircle(76, radius * 0.4716, radius * 0.1358, 1);
+
+            ksCircle21ScetchDef.EndEdit(); // заканчиваем редактирование эскиза
+
+            ksEntity CutCircle21 = part.NewEntity((short)Obj3dType.o3d_cutExtrusion);
+            // получаем интерфейс определения вырезания
+            ksCutExtrusionDefinition CutDefCircle21 = CutCircle21.GetDefinition();
+            // получаем интерфейс настроек вырезания
+            ksExtrusionParam CutPropCircle21 = (ksExtrusionParam)CutDefCircle21.ExtrusionParam();
+
+            if (CutPropCircle21 != null)
+            {
+                // эскиз для вырезания
+                CutDefCircle21.SetSketch(ksCircle21ScetchDef);
+                // направление вырезания (обратное)
+                CutPropCircle21.direction = (short)Direction_Type.dtNormal;
+                // тип вырезания (строго на глубину)
+                CutPropCircle21.typeNormal = (short)End_Type.etBlind;
+                // глубина вырезания
+                CutPropCircle21.depthNormal = 250;
+                // создадим операцию
+
+                CutCircle21.Create();
+            }
+
+            ksEntityCollection ksEntityCollection4 = (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
+            for (int i = 0; i < ksEntityCollection4.GetCount(); i++)
+            {
+                ksEntity part1 = ksEntityCollection4.GetByIndex(i);
+                ksFaceDefinition def = part1.GetDefinition();
+
+                if (def.IsCylinder())
+                {
+                    double h1, r;
+                    def.GetCylinderParam(out h1, out r);
+
+                    if (r == radius * 0.1358)
+                    {
+                        part1.name = "CylinderTyga_PoperechPolzuna";
+                        part1.Update();
+                    }
+                }
             }
 
 
@@ -402,7 +455,7 @@ namespace CurseWork
                 EntityCollection1.Add(CutCircle11);
                 EntityCollection1.Add(CutCircle2);
                 EntityCollection1.Add(CutExtr1);
-                //EntityCollection1.Add(CutExtr2);
+                EntityCollection1.Add(CutCircle21);
 
 
                 MirrorCopyPart1Def.SetPlane(basePlane2Offset);
